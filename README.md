@@ -1,1 +1,1 @@
-# fitbit-data-pipeline
+# Fitbit Data Pipeline
