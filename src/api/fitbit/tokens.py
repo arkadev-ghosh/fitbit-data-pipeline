@@ -12,6 +12,17 @@ class DotEnvTokenManager(TokenManager):
         self.dotenv_path = dotenv_path
 
     @property
+    def client_id(self) -> str:
+        return dotenv_values(dotenv_path=self.dotenv_path)[self._CLIENT_ID_KEY]
+
+    @client_id.setter
+    def client_id(self,
+                  value) -> None:
+        dotenv.set_key(dotenv_path=self.dotenv_path,
+                       key_to_set=self._CLIENT_ID_KEY,
+                       value_to_set=value)
+
+    @property
     def access_token(self) -> str:
         return dotenv_values(dotenv_path=self.dotenv_path)[self._ACCESS_TOKEN_KEY]
 

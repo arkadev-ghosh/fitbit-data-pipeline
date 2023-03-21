@@ -4,8 +4,8 @@ from api.fitbit.tokens import DotEnvTokenManager
 
 def main():
     token_manager = DotEnvTokenManager('../.env')
-    client = Client(token_manager=token_manager)
-    profile = client.get_profile()
+    fitbit_client = Client(token_manager=token_manager)
+    profile = fitbit_client.profile
     print(profile)
 
 

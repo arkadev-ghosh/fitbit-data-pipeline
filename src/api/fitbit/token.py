@@ -3,8 +3,20 @@ from typing import Protocol
 
 
 class TokenManager(Protocol):
+    _CLIENT_ID_KEY = 'CLIENT_ID'
     _ACCESS_TOKEN_KEY: str = 'ACCESS_TOKEN'
     _REFRESH_TOKEN_KEY: str = 'REFRESH_TOKEN'
+
+    @property
+    @abstractmethod
+    def client_id(self):
+        raise NotImplementedError
+
+    @client_id.setter
+    @abstractmethod
+    def client_id(self,
+                  value):
+        raise NotImplementedError
 
     @property
     @abstractmethod
