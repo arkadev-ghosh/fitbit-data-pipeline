@@ -7,10 +7,10 @@ from api.fitbit.tokens.manager import TokenManager
 class DotEnvTokenManager(TokenManager):
     def __init__(self,
                  dotenv_path: str) -> None:
-        self.dotenv_path = dotenv_path
-        self._client_id = dotenv_values(dotenv_path=self.dotenv_path)[self._CLIENT_ID_KEY]
-        self._access_token = dotenv_values(dotenv_path=self.dotenv_path)[self._ACCESS_TOKEN_KEY]
-        self._refresh_token = dotenv_values(dotenv_path=self.dotenv_path)[self._REFRESH_TOKEN_KEY]
+        self._dotenv_path = dotenv_path
+        self._client_id = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._CLIENT_ID_KEY]
+        self._access_token = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._ACCESS_TOKEN_KEY]
+        self._refresh_token = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._REFRESH_TOKEN_KEY]
 
     @property
     def client_id(self) -> str:
@@ -19,11 +19,11 @@ class DotEnvTokenManager(TokenManager):
     @client_id.setter
     def client_id(self,
                   value) -> None:
-        dotenv.set_key(dotenv_path=self.dotenv_path,
-                       key_to_set=self._CLIENT_ID_KEY,
+        dotenv.set_key(dotenv_path=self._dotenv_path,
+                       key_to_set=TokenManager._CLIENT_ID_KEY,
                        value_to_set=value)
 
-        self._client_id = dotenv_values(dotenv_path=self.dotenv_path)[self._CLIENT_ID_KEY]
+        self._client_id = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._CLIENT_ID_KEY]
 
     @property
     def access_token(self) -> str:
@@ -32,11 +32,11 @@ class DotEnvTokenManager(TokenManager):
     @access_token.setter
     def access_token(self,
                      value: str) -> None:
-        dotenv.set_key(dotenv_path=self.dotenv_path,
-                       key_to_set=self._ACCESS_TOKEN_KEY,
+        dotenv.set_key(dotenv_path=self._dotenv_path,
+                       key_to_set=TokenManager._ACCESS_TOKEN_KEY,
                        value_to_set=value)
 
-        self._access_token = dotenv_values(dotenv_path=self.dotenv_path)[self._ACCESS_TOKEN_KEY]
+        self._access_token = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._ACCESS_TOKEN_KEY]
 
     @property
     def refresh_token(self) -> str:
@@ -45,8 +45,8 @@ class DotEnvTokenManager(TokenManager):
     @refresh_token.setter
     def refresh_token(self,
                       value: str) -> None:
-        dotenv.set_key(dotenv_path=self.dotenv_path,
-                       key_to_set=self._REFRESH_TOKEN_KEY,
+        dotenv.set_key(dotenv_path=self._dotenv_path,
+                       key_to_set=TokenManager._REFRESH_TOKEN_KEY,
                        value_to_set=value)
 
-        self._refresh_token = dotenv_values(dotenv_path=self.dotenv_path)[self._REFRESH_TOKEN_KEY]
+        self._refresh_token = dotenv_values(dotenv_path=self._dotenv_path)[TokenManager._REFRESH_TOKEN_KEY]
