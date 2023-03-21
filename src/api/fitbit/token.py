@@ -1,8 +1,8 @@
+from abc import ABC
 from abc import abstractmethod
-from typing import Protocol
 
 
-class TokenManager(Protocol):
+class TokenManager(ABC):
     _CLIENT_ID_KEY = 'CLIENT_ID'
     _ACCESS_TOKEN_KEY: str = 'ACCESS_TOKEN'
     _REFRESH_TOKEN_KEY: str = 'REFRESH_TOKEN'
