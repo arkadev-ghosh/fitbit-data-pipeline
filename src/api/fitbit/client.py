@@ -12,7 +12,7 @@ class Client:
     # WebAPI endpoint details
     _HOSTNAME: str = 'https://api.fitbit.com'
     _DEFAULT_API_VERSION: int = 1
-    _OAUTH2_PATH: str = '/oauth2/token'
+    _OAUTH2_PATH: str = '/oauth2/tokens'
     _PROFILE_PATH: str = '/{}/user/{}/profile.json'
 
     # HTTP request timeout, retries
@@ -82,7 +82,7 @@ class Client:
             return response.json()
 
         # When the authentication tokens expire and result in HTTPError(401),
-        # we need to explicitly handle the token refresh and retry the same request
+        # we need to explicitly handle the tokens refresh and retry the same request
         except requests.exceptions.HTTPError as ex:
             if ex.response.status_code == 401:
                 logger.warning('Encountered authorization error for user: {}'.format(user.user_id))

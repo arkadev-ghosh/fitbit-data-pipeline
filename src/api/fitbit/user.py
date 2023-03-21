@@ -1,4 +1,4 @@
-from api.fitbit.token import TokenManager
+from api.fitbit.tokens.manager import TokenManager
 
 
 class User:
