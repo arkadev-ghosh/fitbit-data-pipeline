@@ -10,4 +10,3 @@ s = BeautifulSoup(html.content,
 for tr in s.find_all('tr'):
     tds = tr.find_all('td')
     print(tds)
-
