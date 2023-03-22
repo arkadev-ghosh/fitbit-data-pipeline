@@ -3,7 +3,7 @@ import logging
 import backoff
 import requests
 
-from api.fitbit.user import User
+from .user import User
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ class Client:
         response_data = response.json()
         user.token_manager.access_token = response_data[Client._ACCESS_TOKEN_KEY]
         user.token_manager.refresh_token = response_data[Client._REFRESH_TOKEN_KEY]
-        logger.warning('Set new access and refresh tokens for user: {}'.format(user.user_id))
+        logger.warning('Set new access and refresh tokens for user: %s', user.user_id)
 
         return response.status_code
 
@@ -70,7 +70,7 @@ class Client:
     def _request(user: User,
                  path: str) -> dict:
         access_token = user.token_manager.access_token
-        header = {'Authorization': 'Bearer {}'.format(access_token)}
+        header = {'Authorization': f'Bearer {access_token}'}
         url = Client._HOSTNAME + path
 
         try:
@@ -85,17 +85,18 @@ class Client:
         # we need to explicitly handle the tokens refresh and retry the same request
         except requests.exceptions.HTTPError as ex:
             if ex.response.status_code == 401:
-                logger.warning('Encountered authorization error for user: {}'.format(user.user_id))
+                logger.warning('Encountered authorization error for user: %s', user.user_id)
                 status_code = Client._refresh(user=user)
-                logger.debug('Refresh status code: {}'.format(status_code))
-                return Client._request(path=path, user=user)
+                logger.debug('Refresh status code: %s', status_code)
+                return Client._request(user=user,
+                                       path=path)
 
-            else:
-                raise ex
+            raise ex
 
     def get_profile(self,
                     user: User) -> dict:
         profile_path = Client._PROFILE_PATH.format(str(self._api_version),
                                                    user.user_id)
-        profile = Client._request(user=user, path=profile_path)
+        profile = Client._request(user=user,
+                                  path=profile_path)
         return profile

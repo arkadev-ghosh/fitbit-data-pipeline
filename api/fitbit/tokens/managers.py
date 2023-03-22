@@ -1,7 +1,7 @@
 import dotenv
 from dotenv import dotenv_values
 
-from api.fitbit.tokens.manager import TokenManager
+from .manager import TokenManager
 
 
 class DotEnvTokenManager(TokenManager):

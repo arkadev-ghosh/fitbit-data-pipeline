@@ -1,8 +1,8 @@
 from dotenv import find_dotenv
 
-from api.fitbit.client import Client
-from api.fitbit.tokens.managers import DotEnvTokenManager
-from api.fitbit.user import User
+from fitbit.client import Client
+from fitbit.tokens.managers import DotEnvTokenManager
+from fitbit.user import User
 
 
 def main():
