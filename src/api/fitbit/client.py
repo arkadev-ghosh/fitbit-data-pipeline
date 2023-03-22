@@ -12,7 +12,7 @@ class Client:
     # WebAPI endpoint details
     _HOSTNAME: str = 'https://api.fitbit.com'
     _DEFAULT_API_VERSION: int = 1
-    _OAUTH2_PATH: str = '/oauth2/tokens'
+    _OAUTH2_PATH: str = '/oauth2/token'
     _PROFILE_PATH: str = '/{}/user/{}/profile.json'
 
     # HTTP request timeout, retries
@@ -86,9 +86,9 @@ class Client:
         except requests.exceptions.HTTPError as ex:
             if ex.response.status_code == 401:
                 logger.warning('Encountered authorization error for user: {}'.format(user.user_id))
-                status_code = Client._refresh()
+                status_code = Client._refresh(user=user)
                 logger.debug('Refresh status code: {}'.format(status_code))
-                return Client._request(path=path)
+                return Client._request(path=path, user=user)
 
             else:
                 raise ex
