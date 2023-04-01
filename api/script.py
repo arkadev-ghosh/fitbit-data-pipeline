@@ -12,7 +12,12 @@ def main():
     fitbit_client = Client()
 
     fitbit_user.profile = fitbit_client.get_profile(fitbit_user)
+    fitbit_user.sleep_log = fitbit_client.get_sleep_log(fitbit_user, start_date='2022-10-11')
+
     print(fitbit_user.profile)
+    data = fitbit_user.sleep_log['sleep']
+    for entry in data:
+        print(entry)
 
 
 if __name__ == '__main__':

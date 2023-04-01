@@ -11,12 +11,17 @@ logger = logging.getLogger(__name__)
 class Client:
     # WebAPI endpoint details
     _HOSTNAME: str = 'https://api.fitbit.com'
-    _DEFAULT_API_VERSION: int = 1
     _OAUTH2_PATH: str = '/oauth2/token'
-    _PROFILE_PATH: str = '/{}/user/{}/profile.json'
+    _USER_PATH: str = '/{}/user/{}/profile.json'
+    _SLEEP_BY_RANGE_PATH: str = '/{}/user/{}/sleep/date/{}/{}.json'
+    _SLEEP_BY_DATE_PATH: str = '/{}/user/{}/sleep/date/{}.json'
+
+    # WebAPI endpoint version details
+    _DEFAULT_USER_API_VERSION: str = '1'
+    _DEFAULT_SLEEP_API_VERSION: str = '1.2'
 
     # HTTP request timeout, retries
-    _REQUEST_TIMEOUT: float = 5.0
+    _REQUEST_TIMEOUT: float = 10.0
     _REQUEST_RETRIES: int = 5
 
     # Request, Response data key/values
@@ -25,8 +30,10 @@ class Client:
     _REFRESH_TOKEN_KEY: str = 'refresh_token'
 
     def __init__(self,
-                 api_version: int = _DEFAULT_API_VERSION) -> None:
-        self._api_version = api_version
+                 user_api_version: str = _DEFAULT_USER_API_VERSION,
+                 sleep_api_version: str = _DEFAULT_SLEEP_API_VERSION) -> None:
+        self._user_api_version = user_api_version
+        self._sleep_api_version = sleep_api_version
 
     @classmethod
     @backoff.on_exception(backoff.expo,
@@ -97,8 +104,28 @@ class Client:
 
     def get_profile(self,
                     user: User) -> dict:
-        profile_path = self._PROFILE_PATH.format(str(self._api_version),
-                                                 user.user_id)
+        profile_path = self._USER_PATH.format(self._user_api_version,
+                                              user.user_id)
         profile = self._request(user=user,
                                 path=profile_path)
         return profile
+
+    def get_sleep_log(self,
+                      user: User,
+                      start_date: str,
+                      end_date: str = None) -> dict:
+        if end_date:
+            sleep_log_path = self._SLEEP_BY_RANGE_PATH.format(self._sleep_api_version,
+                                                              user.user_id,
+                                                              start_date,
+                                                              end_date)
+
+        else:
+            sleep_log_path = self._SLEEP_BY_DATE_PATH.format(self._sleep_api_version,
+                                                             user.user_id,
+                                                             start_date)
+
+        sleep_log = self._request(user=user,
+                                  path=sleep_log_path)
+
+        return sleep_log

@@ -1,2 +1,5 @@
 [MASTER]
 init-hook='import sys; sys.path.append("./api/")'
+
+[FORMAT]
+max-line-length=120

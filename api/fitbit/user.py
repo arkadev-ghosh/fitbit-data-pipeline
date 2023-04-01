@@ -10,6 +10,7 @@ class User:
         self._token_manager = token_manager
         self._user_id = user_id
         self._profile = None
+        self._sleep_log = None
 
     @property
     def token_manager(self):
@@ -27,3 +28,12 @@ class User:
     def profile(self,
                 value):
         self._profile = value
+
+    @property
+    def sleep_log(self):
+        return self._sleep_log
+
+    @sleep_log.setter
+    def sleep_log(self,
+                  value):
+        self._sleep_log = value
