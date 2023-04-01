@@ -25,12 +25,6 @@ for tr in s.find_all('tr'):
         else:
             mapping[current_source].append(elem_text)
 
-
-for k,v in mapping.items():
+for k, v in mapping.items():
     print(k)
     print(v)
-
-
-
-
-
