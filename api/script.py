@@ -1,14 +1,10 @@
-from dotenv import find_dotenv
-
 from fitbit.client import Client
-from fitbit.tokens.managers import DotEnvTokenManager
+from fitbit.tokens.managers import SSMTokenManager
 from fitbit.user import User
 
 
 def main():
-    dotenv_path = find_dotenv()
-    print("Dot env path: ", dotenv_path)
-    token_manager = DotEnvTokenManager(dotenv_path=dotenv_path)
+    token_manager = SSMTokenManager()
     fitbit_user = User(token_manager=token_manager)
     fitbit_client = Client()
 
