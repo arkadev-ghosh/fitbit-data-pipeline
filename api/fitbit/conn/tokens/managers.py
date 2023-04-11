@@ -1,7 +1,6 @@
 import logging
 
 import backoff
-import boto3
 import dotenv
 from botocore import exceptions
 from dotenv import dotenv_values
@@ -62,16 +61,11 @@ class DotEnvTokenManager(TokenManager):
 class SSMTokenManager(TokenManager):
     _PARAMETER_KEY = 'Parameter'
     _VALUE_KEY = 'Value'
-    _DEFAULT_AWS_REGION = 'us-east-1'
     _REQUEST_RETRIES = 3
 
-    def __init__(self, region_name=_DEFAULT_AWS_REGION):
-        self._session = boto3.session.Session()
-        self._ssm_client = self._session.client(
-            service_name='ssm',
-            region_name=region_name
-        )
-
+    def __init__(self,
+                 ssm_client):
+        self._ssm_client = ssm_client
         self._client_id = self._get_parameter(name=TokenManager._CLIENT_ID_KEY)
         self._access_token = self._get_parameter(name=TokenManager._ACCESS_TOKEN_KEY)
         self._refresh_token = self._get_parameter(name=TokenManager._REFRESH_TOKEN_KEY)

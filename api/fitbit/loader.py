@@ -1,10 +1,18 @@
-from fitbit.client import Client
-from fitbit.tokens.managers import SSMTokenManager
-from fitbit.user import User
+import boto3
+
+from conn.client import Client
+from conn.tokens.managers import SSMTokenManager
+from conn.user import User
 
 
 def main():
-    token_manager = SSMTokenManager()
+    session = boto3.session.Session()
+    ssm_client = session.client(
+        service_name='ssm',
+        region_name='us-east-1'
+    )
+
+    token_manager = SSMTokenManager(ssm_client=ssm_client)
     fitbit_user = User(token_manager=token_manager)
     fitbit_client = Client()
 

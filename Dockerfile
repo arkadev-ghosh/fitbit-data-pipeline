@@ -9,6 +9,6 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . /app
 
-WORKDIR /app/api
+WORKDIR /app/api/fitbit
 
-CMD ["python", "script.py"]
+CMD ["python", "loader.py"]
