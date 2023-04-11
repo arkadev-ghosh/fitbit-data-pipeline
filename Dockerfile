@@ -7,8 +7,6 @@ COPY ./requirements.txt /app
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY extractors/fitbit /app
 
-WORKDIR /app/api/fitbit
-
-CMD ["python", "loader.py"]
+CMD ["python", "extractor.py"]
