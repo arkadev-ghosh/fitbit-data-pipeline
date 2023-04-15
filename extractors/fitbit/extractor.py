@@ -1,8 +1,8 @@
 import boto3
 
-from conn.client import Client
-from conn.tokens.managers import SSMTokenManager
-from conn.user import User
+from extractors.fitbit.conn.client import Client
+from extractors.fitbit.conn.tokens.managers import SSMTokenManager
+from extractors.fitbit.conn.user import User
 
 
 def main():

@@ -1,4 +1,4 @@
-from .tokens.manager import TokenManager
+from extractors.fitbit.conn.tokens.manager import TokenManager
 
 
 class User:

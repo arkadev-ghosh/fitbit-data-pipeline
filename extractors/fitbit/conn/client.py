@@ -3,7 +3,7 @@ import logging
 import backoff
 import requests
 
-from .user import User
+from extractors.fitbit.conn.user import User
 
 logger = logging.getLogger(__name__)
 

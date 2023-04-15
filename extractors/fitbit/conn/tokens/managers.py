@@ -5,7 +5,7 @@ import dotenv
 from botocore import exceptions
 from dotenv import dotenv_values
 
-from .manager import TokenManager
+from extractors.fitbit.conn.tokens.manager import TokenManager
 
 logger = logging.getLogger(__name__)
 
